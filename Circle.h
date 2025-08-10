@@ -28,6 +28,9 @@ public:
 	double getPositionXMeters() { return 149597870700 * m_position[0]; }
 	double getPositionYMeters() { return 149597870700 * m_position[1]; }
 	double getMassKg() { return 1.989e30 * m_mass; }
+	double getVelocityX() { return m_velocity[0]; }
+	double getVelocityY() { return m_velocity[1]; }
+	double getTotalV();
 
 private:
 

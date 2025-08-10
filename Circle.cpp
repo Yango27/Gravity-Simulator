@@ -89,3 +89,8 @@ void Circle::conversionMToPixel(double arrayM[2], float arrayP[2])
     arrayP[0] = (arrayM[0] / MAX_DISTANCE) * (SCREEN_SIZE / 2);
     arrayP[1] = (arrayM[1] / MAX_DISTANCE) * (SCREEN_SIZE / 2);
 }
+
+double Circle::getTotalV()
+{
+    return std::hypot(m_velocity[0], m_velocity[1]);
+}

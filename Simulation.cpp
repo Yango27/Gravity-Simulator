@@ -49,3 +49,25 @@ void Simulation::calculateRefP(float refP[2])
 
     Circle::conversionMToPixel(refUA, refP);
 }
+
+double Simulation::calculateEnergy()
+{
+    double totalEnergy = 0;
+    for (int i = 0; i < m_planets.size(); i++)
+    {
+        double potentialEnergy = 0;
+        for (int j = 0; j < m_planets.size(); j++)
+        {
+            if (j != i)
+            {
+                double dx = m_planets[i].getPositionX() - m_planets[j].getPositionX();
+                double dy = m_planets[i].getPositionY() - m_planets[j].getPositionY();
+                double r = std::hypot(dx, dy);
+                potentialEnergy += G * m_planets[i].getMass() * m_planets[j].getMass() / r;
+            }
+        }
+        double kineticEnergy = 0.5 * m_planets[i].getTotalV() * m_planets[i].getTotalV() * m_planets[i].getMass();
+        totalEnergy += potentialEnergy + kineticEnergy;
+    }
+    return totalEnergy;
+}

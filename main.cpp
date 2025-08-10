@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Simulation.h"
-
 int main() {
     if (!glfwInit()) {
         std::cerr << "Error initializing GLFW\n";
@@ -28,18 +27,17 @@ int main() {
     float t = 0.0015;
 
     Simulation s;
+
     while (!glfwWindowShouldClose(window))
     {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
+		double energy = s.calculateEnergy();
         s.drawSimulation(t);
-
         glfwSwapBuffers(window);
         glfwPollEvents();
+		std::cout << "Energy: " << energy << std::endl;
     }
-
     glfwDestroyWindow(window);
     glfwTerminate();
-    return 0;
 }

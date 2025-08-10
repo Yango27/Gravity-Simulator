@@ -17,7 +17,7 @@ public:
         double v = 1.5 * PI;
 
         Circle planeta1(
-            10.0f, mass * 2, true, red,
+            10.0f, mass, true, red,
             1.0, 0.0,
             0.0, v / 2,
             0.0, 0.0, N
@@ -37,13 +37,12 @@ public:
             0.0, 0.0, N
         );
 
-
-
         m_planets.push_back(planeta1);
         m_planets.push_back(planeta2);
         m_planets.push_back(planeta3);
     }
     void drawSimulation(float t);
+    double calculateEnergy();
 private:
     std::vector<Circle> m_planets;
     void calculateGrav();
