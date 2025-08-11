@@ -1,6 +1,6 @@
 #include "Circle.h"
 
-Circle::Circle(float r, double mass, bool path, float color[3], double cx, double cy, double vx, double vy, double ax, double ay, int N)
+Circle::Circle(float r, double mass, float color[3], double cx, double cy, double vx, double vy, double ax, double ay, bool path, int N)
 {
     m_r = r; m_N = N; m_mass = mass;
     m_position[0] = cx; m_position[1] = cy; m_velocity[0] = vx; m_velocity[1] = vy; m_acc[0] = ax; m_acc[1] = ay;
@@ -34,7 +34,7 @@ void Circle::drawCircle(float refP[2])
     }
     glEnd();
 
-    if (m_pathX.size() >= 2000)
+    if (m_pathX.size() >= 1000)
     {
         m_pathX.erase(m_pathX.begin());
         m_pathY.erase(m_pathY.begin());

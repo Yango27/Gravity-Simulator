@@ -1,11 +1,10 @@
 #pragma once
 #include <GLFW/glfw3.h>
 #include <cmath>
-#include <chrono>
 #include <vector>
 const float PI = 3.14159265358979323846f;
 const int SCREEN_SIZE = 800;
-const double MAX_DISTANCE = 2;
+const double MAX_DISTANCE = 2; // in AU, you can change this to adjust the scale of the simulation
 
 class Circle
 {
@@ -17,7 +16,7 @@ public:
 		m_color[0] = 0.0f; m_color[1] = 0.0f; m_color[2] = 0.0f;
 		m_prevAcc[0] = 0.0; m_prevAcc[1] = 0.0;
 	}
-	Circle(float r, double mass, bool path, float color[3], double cx = 0.0, double cy = 0.0, double vx = 0.0, double vy = 0.0, double ax = 0.0, double ay = 0.0, int N = 40);
+	Circle(float r, double mass, float color[3], double cx = 0.0, double cy = 0.0, double vx = 0.0, double vy = 0.0, double ax = 0.0, double ay = 0.0, bool path = true, int N = 40);
 	void drawCircle(float refP[2]);
 	void moveCircle(float t);
 	void setAcc(double ax, double ay);

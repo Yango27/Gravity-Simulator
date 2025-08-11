@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Simulation.h"
+#include <future>
+#include <thread>
 int main() {
     if (!glfwInit()) {
         std::cerr << "Error initializing GLFW\n";
@@ -24,7 +26,8 @@ int main() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    float t = 0.00015;
+	float t = 0.00015; //delat time in years, adjust as needed for simulation speed, 
+	//just as a warning, the larger the value, the faster the simulation, but also less accurate it will be, and vice versa.
 
     Simulation s;
 
@@ -32,10 +35,14 @@ int main() {
     {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-		double energy = s.calculateEnergy();
+
+		auto fut = std::async(&Simulation::calculateEnergy, &s);
         s.drawSimulation(t);
+
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        double energy = fut.get();
 		std::cout << "Energy: " << energy << std::endl;
     }
     glfwDestroyWindow(window);
