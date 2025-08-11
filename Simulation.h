@@ -7,39 +7,20 @@ class Simulation
 public:
     Simulation()
     {
-        float red[3] = { 1.0f, 0.0f, 0.0f };
-        float green[3] = { 0.0f, 1.0f, 0.0f };
-        float blue[3] = { 0.0f, 0.0f, 1.0f };
+        float color1[3] = { 1.0f, 0.0f, 0.0f };
+        float color2[3] = { 0.0f, 1.0f, 0.0f };
+        float color3[3] = { 0.0f, 0.0f, 1.0f };
 
-        double mass = 1.0;
-        int N = 40;
+        float radius = 10.0f;
+        bool path = true;
+        
+        Circle body1(radius, 1, path, color1);
+        Circle body2(radius, 3.00274e-6, path, color2, 1, 0, 0, 1);
+        Circle body3(radius, 3.00274e-4, path, color3, 1.5, 0, 0, 1);
 
-        double v = 1.5 * PI;
-
-        Circle planeta1(
-            10.0f, mass, true, red,
-            1.0, 0.0,
-            0.0, v / 2,
-            0.0, 0.0, N
-        );
-
-        Circle planeta2(
-            10.0f, mass, true, green,
-            -0.5, sqrt(3) / 2,
-            -v * sqrt(3) / 2, -v * 0.5,
-            0.0, 0.0, N
-        );
-
-        Circle planeta3(
-            10.0f, mass, true, blue,
-            -0.5, -sqrt(3) / 2,
-            v * sqrt(3) / 2, -v * 0.5,
-            0.0, 0.0, N
-        );
-
-        m_planets.push_back(planeta1);
-        m_planets.push_back(planeta2);
-        m_planets.push_back(planeta3);
+        m_planets.push_back(body1);
+        m_planets.push_back(body2);
+        m_planets.push_back(body3);
     }
     void drawSimulation(float t);
     double calculateEnergy();

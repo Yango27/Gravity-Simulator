@@ -3,12 +3,20 @@
 void Simulation::drawSimulation(float t)
 {
     calculateGrav();
+    for (int i = 0; i < m_planets.size(); i++)
+    {
+		m_planets[i].moveCircle(t);
+	}
+    calculateGrav();
+    for (int i = 0; i < m_planets.size(); i++)
+    {
+        m_planets[i].setNewVelocity(t);
+	}
     float refP[2];
     calculateRefP(refP);
     for (int i = 0; i < m_planets.size(); i++)
     {
         m_planets[i].drawCircle(refP);
-        m_planets[i].moveCircle(t * 0.1);
     }
 }
 
@@ -56,15 +64,12 @@ double Simulation::calculateEnergy()
     for (int i = 0; i < m_planets.size(); i++)
     {
         double potentialEnergy = 0;
-        for (int j = 0; j < m_planets.size(); j++)
+        for (int j = i + 1; j < m_planets.size(); j++)
         {
-            if (j != i)
-            {
-                double dx = m_planets[i].getPositionX() - m_planets[j].getPositionX();
-                double dy = m_planets[i].getPositionY() - m_planets[j].getPositionY();
-                double r = std::hypot(dx, dy);
-                potentialEnergy += G * m_planets[i].getMass() * m_planets[j].getMass() / r;
-            }
+            double dx = m_planets[i].getPositionX() - m_planets[j].getPositionX();
+            double dy = m_planets[i].getPositionY() - m_planets[j].getPositionY();
+            double r = std::hypot(dx, dy);
+            potentialEnergy -= G * m_planets[i].getMass() * m_planets[j].getMass() / r;
         }
         double kineticEnergy = 0.5 * m_planets[i].getTotalV() * m_planets[i].getTotalV() * m_planets[i].getMass();
         totalEnergy += potentialEnergy + kineticEnergy;

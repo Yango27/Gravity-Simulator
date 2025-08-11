@@ -24,7 +24,7 @@ int main() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    float t = 0.0015;
+    float t = 0.00015;
 
     Simulation s;
 

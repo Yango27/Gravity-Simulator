@@ -9,12 +9,10 @@ Circle::Circle(float r, double mass, bool path, float color[3], double cx, doubl
     m_pathX.push_back(arrayP[0]);
     m_pathY.push_back(arrayP[1]);
     m_path = path;
-    m_prevPosition[0] = 0.0;
-    m_prevPosition[1] = 0.0;
-    m_firstIteration = true;
     m_color[0] = color[0];
     m_color[1] = color[1];
     m_color[2] = color[2];
+    m_prevAcc[0] = 0.0; m_prevAcc[1] = 0.0;
 }
 
 void Circle::drawCircle(float refP[2])
@@ -25,7 +23,7 @@ void Circle::drawCircle(float refP[2])
     conversionMToPixel(m_position, arrayP);
     arrayP[0] -= refP[0];
     arrayP[1] -= refP[1];
-    glVertex2f(arrayP[0], arrayP[1]); //center of the circle
+    glVertex2f(arrayP[0], arrayP[1]); 
 
     for (int i = 0; i <= m_N; i++)
     {
@@ -58,24 +56,17 @@ void Circle::drawCircle(float refP[2])
 
 void Circle::moveCircle(float t)
 {
-    m_velocity[0] += m_acc[0] * t;
-    m_velocity[1] += m_acc[1] * t;
+	m_position[0] += m_velocity[0] * t + 0.5 * m_acc[0] * t * t;
+	m_position[1] += m_velocity[1] * t + 0.5 * m_acc[1] * t * t;
+}
 
-    if (m_firstIteration)
-    {
-        m_prevPosition[0] = m_position[0] - m_velocity[0] * t;
-        m_prevPosition[1] = m_position[1] - m_velocity[1] * t;
-        m_firstIteration = false;
-    }
+void Circle::setNewVelocity(float t)
+{
+    m_velocity[0] += 0.5 * (m_prevAcc[0] + m_acc[0]) * t;
+	m_velocity[1] += 0.5 * (m_prevAcc[1] + m_acc[1]) * t;
 
-    double tempX = m_position[0];
-    double tempY = m_position[1];
-
-    m_position[0] = 2 * m_position[0] - m_prevPosition[0] + m_acc[0] * t * t;
-    m_position[1] = 2 * m_position[1] - m_prevPosition[1] + m_acc[1] * t * t;
-
-    m_prevPosition[0] = tempX;
-    m_prevPosition[1] = tempY;
+	m_prevAcc[0] = m_acc[0];
+	m_prevAcc[1] = m_acc[1];
 }
 
 void Circle::setAcc(double ax, double ay)
