@@ -8,7 +8,7 @@ int main() {
         return -1;
     }
 
-    GLFWwindow* window = glfwCreateWindow(SCREEN_SIZE, SCREEN_SIZE, "Graviity Simulation", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCREEN_SIZE, SCREEN_SIZE, "Gravity Simulation", NULL, NULL);
     if (!window) {
         std::cerr << "Could not create the window\n";
         glfwTerminate();
